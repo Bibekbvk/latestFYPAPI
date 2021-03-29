@@ -314,17 +314,41 @@ router.get('/help', async(req,res,next) => {
 });
 
 
+router.get('/feedbacks', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.getFeedback();
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
 
 
 
- router.get('/bikes-details', async(req,res,next) => {
+
+
+
+ router.get('/deleteMedicine', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
     try{
         console.log("not error");
         res.statusCode = 200;
-        let result = await db.getVehiclesDetails(req.query.id);
+        let result = await db.deletemedicine(req.query.med_id);
         res.json(result);
 
     }
@@ -339,6 +363,112 @@ router.get('/help', async(req,res,next) => {
 
 
 });
+
+
+
+
+router.get('/deleteFeedback', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.Deletefeedback(req.query.UID);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+router.get('/deletestaff', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteStaff(req.query.staff_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+router.get('/deletemedicalitem', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteItm(req.query.itm_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+router.get('/deletevolunteer', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteVolunteer(req.query.V_ID);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+
+
 
 
 

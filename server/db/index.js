@@ -316,6 +316,27 @@ drmobile.gethelp = () => {
 };
 
 
+drmobile.getFeedback = () => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`SELECT * FROM feedback`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
 
 
 
@@ -342,6 +363,124 @@ drmobile.getVehiclesDetails = (id) => {
 
 
 };
+
+drmobile.deletemedicine = (med_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM medicine WHERE med_id = ?` ,[med_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+drmobile.deleteStaff = (med_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM staff WHERE staff_id = ?` ,[med_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.deleteItm = (itm_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM medicalitems WHERE itm_id = ?` ,[itm_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+drmobile.deleteVolunteer = (V_ID) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM volunteer WHERE V_ID = ?` ,[V_ID],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+drmobile.Deletefeedback = (UID) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM feedback WHERE UID = ?` ,[UID],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
 
 drmobile.validateToken = (token) => {
 
