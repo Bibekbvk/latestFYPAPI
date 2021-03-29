@@ -803,32 +803,32 @@ router.get('/insertAbortion', async(req,res,next) => {
 
 });
 
-router.post('/login',async(req, res) =>{
+router.get('/login',async(req, res) =>{
     console.log("login");
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); 
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
     try{
         
-        res.statusCode = 200;
+        res.status(200)
         
-        let result = await db.login(req.body.email,req.body.password);
-        res.json(result);
-        console.log("successfully uploaded ")
+        let result = await db.login(req.query.email,req.query.password);
+        res.sendStatus(status);
+        console.log("successfully uploaded ");
 
     }
     catch(e){
        
         console.log("some error");
         if(e.code == "Duplicate entry"){
-            res.statusCode = 500;
+           res.status(400)
             
             res.json({'error':e.statuscode});
         }else{
             res.json({'error':e.code})
-            console.log("successfully uploaded ")
+            console.log("successfully uploaded ");
         }
-        res.sendStatus(500);
+       res.status(401);
        
 
     }
@@ -836,7 +836,7 @@ router.post('/login',async(req, res) =>{
   
   });
 // registration
-router.get('/registration', async(req,res,next) => {
+router.get('/register', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
@@ -844,7 +844,7 @@ router.get('/registration', async(req,res,next) => {
         
         res.statusCode = 200;
         
-        let result = await db.registration(decodeURI(req.query.uid),decodeURI(req.query.name),decodeURI(req.query.contact),decodeURI(req.query.username),decodeURI(req.query.password));
+        let result = await db.registration(decodeURI(req.query.u_id),decodeURI(req.query.name),decodeURI(req.query.email),decodeURI(req.query.contact1),decodeURI(req.query.contact2),decodeURI(req.query.location),decodeURI(req.query.password));
         res.json(e.statusCode);
         console.log("successfully uploaded ")
         
@@ -853,14 +853,14 @@ router.get('/registration', async(req,res,next) => {
        
         console.log("some error");
         if(e.code == "Duplicate entry"){
-            res.statusCode = 500;
+            res.statusCode = 400;
             
             res.json({'error':e.statuscode});
         }else{
             res.json({'error':e.code})
             console.log("successfully uploaded ")
         }
-        res.sendStatus(500);
+        res.sendStatus(401);
        
 
     }

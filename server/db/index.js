@@ -774,11 +774,11 @@ drmobile.insertAbortion = (place_ID,name,location,contact,details,images) => {
 
 
 //inserting user details
-drmobile.registration = (uid,name,contact,username,password) => {
+drmobile.registration = (u_id,name,email,contact1,contact2,location,password) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into users(UID, name, contact, username, password) values(?, ?, ?, ?, ?)`,[uid, name, contact, username, password],(err,results) => {
+        pool.query(`insert into user(u_id, name, email, contact1, contact2, location, password) values(?, ?, ?, ?, ?, ?, ?)`,[u_id, name, email, contact1, contact2, location, password],(err,results) => {
             
           
            
