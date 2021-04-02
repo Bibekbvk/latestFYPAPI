@@ -43,77 +43,11 @@ drmobile.all = () => {
 
 
 
-drmobile.allcategories = () => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT DISTINCT category as category_name from products`,(err,results) => {
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
 //staff selected
 drmobile.searchProduct = (term,limit) => {
 
     return new Promise((resolve,reject) => {
         pool.query(`SELECT * FROM products WHERE tags LIKE '%' ? '%' OR name LIKE '%' ? '%' LIMIT ?,10`,[term,term,limit],(err,results) => {
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
-
-drmobile.getCategory = (category,limit) => {
-
-    return new Promise((resolve,reject) => {
-        pool.query(`SELECT * FROM products WHERE category LIKE ? LIMIT ?,10` ,[category,limit],(err,results) => {
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
-
-
-
-drmobile.allBrands= () => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query('SELECT `name` as "brand_name",`image_url`,`priority_id` FROM `brand_list`',(err,results) => {
             
             if(err){
                 return reject(err);
@@ -535,30 +469,6 @@ drmobile.Deletefeedback = (UID) => {
 
 
 
-drmobile.validateToken = (token) => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT count(user) as count FROM tokens WHERE token LIKE ?` ,[token],(err,results) => {
-
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
-
-
 
 
 
@@ -583,32 +493,6 @@ drmobile.ViewStaffRegistration = () => {
 
 
 };
-
-
-
-drmobile.featuredProducts = () => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT * FROM products where featured_product = '1'`,(err,results) => {
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
-
-
 
 
 // insert feedback
@@ -967,91 +851,6 @@ drmobile.login = (email,password) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-// insert user id and product id wish list 
-
-
-// drmobile.insertwishlist = (user_id,product_id) => {
-
-//     return new Promise((resolve,reject) => {
-
-//         pool.query(`insert into wishlist(uuid, product_id) values(?, ?)`,[user_id, product_id],(err,results) => {
-            
-          
-           
-
-//             if(err){
-               
-//                 return reject(err);}
-         
-//             else{
-//                 return resolve(results);
-//             }
-
-//         });
-
-
-//     });
-
-
-// };
-
-
-
-// select user id and product id wish list 
-
-
-drmobile.userProduct = (user_id) => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT * FROM wishlist where uuid LIKE '%' ? '%'`,[user_id],(err,results) => {
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
-
-drmobile.customWidget = () => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT * FROM widgets`,(err,results) => {
-
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
 
 
 module.exports = drmobile;
