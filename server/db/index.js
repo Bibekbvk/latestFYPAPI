@@ -316,6 +316,32 @@ drmobile.gethelp = () => {
 };
 
 
+
+drmobile.getInvitations = () => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`SELECT * FROM invitation`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
 drmobile.getFeedback = () => {
 
     return new Promise((resolve,reject) => {
@@ -385,6 +411,33 @@ drmobile.deletemedicine = (med_id) => {
 
 
 };
+
+
+drmobile.deleteInvitation = (I_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM invitation WHERE I_id = ?` ,[I_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
 
 
 drmobile.deleteStaff = (med_id) => {
@@ -506,11 +559,14 @@ drmobile.validateToken = (token) => {
 
 
 
-drmobile.customWidget = () => {
+
+
+
+drmobile.ViewStaffRegistration = () => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`SELECT * FROM widgets`,(err,results) => {
+        pool.query(`SELECT * FROM staffregistration`,(err,results) => {
 
             
             if(err){
@@ -527,6 +583,7 @@ drmobile.customWidget = () => {
 
 
 };
+
 
 
 drmobile.featuredProducts = () => {
@@ -589,6 +646,34 @@ drmobile.insertemergency = (E_ID,Name,Contact1,Contact2,location) => {
     return new Promise((resolve,reject) => {
 
         pool.query(`insert into emergencycontact(E_ID, Name, Contact1, Contact2, location) values(?, ?, ?, ?, ?)`,[E_ID, Name, Contact1, Contact2, location],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+drmobile.insertinvite = (I_id,user_id,name,staff_id,contact) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into invitation(I_id, user_id, name, staff_id, contact) values(?, ?, ?, ?, ?)`,[I_id, user_id, name, staff_id, contact],(err,results) => {
             
           
            
@@ -713,6 +798,65 @@ drmobile.insertvolunteer = (V_ID,name,location,contact,type,details,email,image)
 
 
 
+drmobile.insertStaffRegistration = (U_id,image,image1,image2,description) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into staffRegistration(U_id, image, image1, image2, description) values(?, ?, ?, ?, ?)`,[U_id, image, image1, image2, description],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+drmobile.insertmedicalItem = (itm_id,name,otherName,company,price,quantity,description,tags,images) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into medicalitems(itm_id, name, otherName, company, price, quantity, description, tags, images) values(?, ?, ?, ?, ?, ?, ?, ?, ?)`,[itm_id, name, otherName, company, price, quantity, description, tags, images],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+
+
+
 
 
 
@@ -809,6 +953,7 @@ drmobile.login = (email,password) => {
             if(row.length!=0) {
               console.log("User Logged In");
               resolve(row);
+            
               } else {
               res.status(404);
               console.error("Failure");
