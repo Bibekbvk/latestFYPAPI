@@ -201,6 +201,33 @@ router.get('/ViewStaffRegistration', async(req,res,next) => {
 
 });
 
+
+
+
+
+
+router.get('/searchStaff', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.searchStaffs(req.query.name);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
 router.get('/sexeducation', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed

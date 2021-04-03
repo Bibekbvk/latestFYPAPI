@@ -468,6 +468,28 @@ drmobile.Deletefeedback = (UID) => {
 
 
 
+drmobile.searchStaffs = (sname) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM staff where name like '%' ? '%'`,[sname],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
 
 
 
