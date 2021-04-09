@@ -203,6 +203,29 @@ router.get('/ViewStaffRegistration', async(req,res,next) => {
 
 
 
+router.get('/searchtMedicineOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.getmyMedicine(req.query.med_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
 
 
 
@@ -287,7 +310,7 @@ router.get('/myitems', async(req,res,next) => {
     try{
         
         res.statusCode = 200;
-        let result = await db.myitems(req.query.user_id);
+        let result = await db.myItems(req.query.user_id);
         res.json(result);
 
     }
@@ -405,6 +428,11 @@ router.get('/invitations', async(req,res,next) => {
 
 
 
+
+
+
+
+
 router.get('/feedbacks', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
@@ -426,6 +454,9 @@ router.get('/feedbacks', async(req,res,next) => {
 
 
 });
+
+
+
 
 
 

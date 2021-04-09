@@ -302,6 +302,11 @@ drmobile.getFeedback = () => {
 
 
 
+
+
+
+
+
 drmobile.getVehiclesDetails = (id) => {
 
     return new Promise((resolve,reject) => {
@@ -542,6 +547,28 @@ drmobile.searchMedicalItem = (tags) => {
 };
 
 
+drmobile.getmyMedicine = (user_id) => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`SELECT * FROM medicineorder where user = ?`[user_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
 
 
 drmobile.searchInvitation = (user_id) => {
@@ -572,7 +599,7 @@ drmobile.myItems = (user_id) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`SELECT * FROM  itemorder where user_id=?`,[user_id],(err,results) => {
+        pool.query(`SELECT * FROM  itemorder where user_id = ?`,[user_id],(err,results) => {
 
             
             if(err){
