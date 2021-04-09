@@ -420,6 +420,33 @@ drmobile.deleteItm = (itm_id) => {
 
 };
 
+
+
+drmobile.deleteInvitation = (I_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM invitation WHERE I_id = ?` ,[I_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
 drmobile.deleteVolunteer = (V_ID) => {
 
     return new Promise((resolve,reject) => {
@@ -468,11 +495,116 @@ drmobile.Deletefeedback = (UID) => {
 
 
 
-drmobile.searchStaffs = (sname) => {
+drmobile.searchStaffs = (tags) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`SELECT * FROM staff where name like '%' ? '%'`,[sname],(err,results) => {
+        pool.query(`SELECT * FROM staff where name like '%' ? '%'`,[tags],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.searchMedicalItem = (tags) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM medicalitems where tags like '%' ? '%'`,[tags],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+drmobile.searchInvitation = (user_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM invitation where user_id =0`,[user_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.myItems = (user_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM  itemorder where user_id=?`,[user_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+drmobile.searchMedicine = (tname) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM medicine where tags like '%' ? '%'`,[tname],(err,results) => {
 
             
             if(err){
@@ -602,6 +734,65 @@ drmobile.insertinvite = (I_id,user_id,name,staff_id,contact) => {
 
 
 
+
+drmobile.insertItemOrder = (itmOrder_id,user_id,itm_id,user_contact,user_name) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into itemorder(itmOrder_id, user_id, itm_id, user_contact, user_name) values(?, ?, ?, ?, ?)`,[itmOrder_id,user_id, itm_id, user_contact, user_name],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.insertMedicineOrder = (user_id,med_id,user_contact,userName) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into medicineorder(user_id, med_id, user_contact, userName) values(?, ?, ?, ?)`,[user_id, med_id, user_contact, userName],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+
+
+
 drmobile.help = (topic,image,details) => {
 
     return new Promise((resolve,reject) => {
@@ -652,11 +843,11 @@ drmobile.insertSexEducation = (topic,article1,date,image1,article2,image2) => {
 };
 
 
-drmobile.insertstaff = (S_ID,Name,staff_type,location,fee,reg_no,photo) => {
+drmobile.insertstaff = (Name,staff_type,location,fee,reg_no,photo) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into staff(staff_id, name, staff_type, location, fee, reg_no, photo) values(?, ?, ?, ?, ?, ?, ?)`,[S_ID, Name, staff_type, location, fee, reg_no, photo],(err,results) => {
+        pool.query(`insert into staff(name, staff_type, location, fee, reg_no, photo) values(?, ?, ?, ?, ?, ?)`,[Name, staff_type, location, fee, reg_no, photo],(err,results) => {
             
           
            

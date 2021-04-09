@@ -228,6 +228,112 @@ router.get('/searchStaff', async(req,res,next) => {
 
 });
 
+
+
+
+router.get('/searchMedicalItem', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.searchMedicalItem(req.query.tags);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+router.get('/searchInvitation', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.searchInvitation(req.query.user_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+router.get('/myitems', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.myitems(req.query.user_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+
+router.get('/searchMedicine', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.searchMedicine(req.query.tags);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+
+
+
 router.get('/sexeducation', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
@@ -428,6 +534,31 @@ router.get('/deletestaff', async(req,res,next) => {
 
 
 });
+
+router.get('/deleteInvitations', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteInvitation(req.query.I_id);
+        res.send("deleted");
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
 
 
 router.get('/deletemedicalitem', async(req,res,next) => {
@@ -640,6 +771,77 @@ router.get('/insertInvite', async(req,res,next) => {
 
 });
 
+//insert invite
+router.get('/insertMedicalOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        
+        let result = await db.insertItemOrder(decodeURI(req.query.itmOrder_id),decodeURI(req.query.user_id),decodeURI(req.query.itm_id),decodeURI(req.query.user_contact), decodeURI(req.query.user_name));
+        res.json(e.statusCode);
+        console.log("successfully uploaded ")
+
+    }
+    catch(e){
+       
+        console.log("some error");
+        if(e.code == "Duplicate entry"){
+            res.statusCode = 500;
+            
+            res.json({'error':e.statuscode});
+        }else{
+            res.json({'error':e.code})
+            console.log("successfully uploaded ")
+        }
+        res.sendStatus(500);
+       
+
+    }
+
+});
+
+
+
+
+//insert invite
+router.get('/insertMedicineOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        
+        let result = await db.insertMedicineOrder(decodeURI(req.query.user_id),decodeURI(req.query.med_id),decodeURI(req.query.user_contact), decodeURI(req.query.userName));
+        res.json(e.statusCode);
+        console.log("successfully uploaded ")
+
+    }
+    catch(e){
+       
+        console.log("some error");
+        if(e.code == "Duplicate entry"){
+            res.statusCode = 500;
+            
+            res.json({'error':e.statuscode});
+        }else{
+            res.json({'error':e.code})
+            console.log("successfully uploaded ")
+        }
+        res.sendStatus(500);
+       
+
+    }
+
+});
+
+
+
+
+
 
 
 
@@ -726,7 +928,7 @@ router.get('/insertstaff', async(req,res,next) => {
         
         res.statusCode = 200;
         
-        let result = await db.insertstaff(decodeURI(req.query.S_ID),decodeURI(req.query.Name),decodeURI(req.query.staff_type),decodeURI(req.query.location),decodeURI(req.query.fee),decodeURI(req.query.reg_no),decodeURI(req.query.photo));
+        let result = await db.insertstaff(decodeURI(req.query.Name),decodeURI(req.query.staff_type),decodeURI(req.query.location),decodeURI(req.query.fee),decodeURI(req.query.reg_no),decodeURI(req.query.photo));
         res.json(e.statusCode);
         console.log("successfully uploaded ")
 
