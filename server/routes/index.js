@@ -203,14 +203,14 @@ router.get('/ViewStaffRegistration', async(req,res,next) => {
 
 
 
-router.get('/searchtMedicineOrder', async(req,res,next) => {
+router.get('/searchMedicineOrder', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
     try{
         
         res.statusCode = 200;
-        let result = await db.getmyMedicine(req.query.med_id);
+        let result = await db.getmyMedicine(req.query.user_id);
         res.json(result);
 
     }
@@ -302,6 +302,77 @@ router.get('/searchInvitation', async(req,res,next) => {
 
 
 
+
+router.get('/medicineorder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.medicine_order();
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+router.get('/ViewitemOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.item_order();
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+router.get('/feedbacks', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Accesss-Control-Allow-Methods', 'GET'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.statusCode = 200;
+        let result = await db.getFeedback();
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+        res.sendStatus(500);
+
+
+    }
+
+
+});
 
 router.get('/myitems', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -457,12 +528,6 @@ router.get('/feedbacks', async(req,res,next) => {
 
 
 
-
-
-
-
-
-
  router.get('/deleteMedicine', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
@@ -488,6 +553,57 @@ router.get('/feedbacks', async(req,res,next) => {
 
 
 
+router.get('/deleteMedicineOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteMedicineOrder(req.query.order_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+router.get('/deletemedicalitemOrder', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deletemedicalitemOrder(req.query.itmOrder_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
 router.get('/deleteInvitation', async(req,res,next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
@@ -496,6 +612,32 @@ router.get('/deleteInvitation', async(req,res,next) => {
         console.log("not error");
         res.statusCode = 200;
         let result = await db.deleteInvitation(req.query.I_id);
+        res.json(result);
+
+    }
+    catch(e){
+        console.log("some error");
+        console.log(e);
+   
+        res.sendStatus(500);
+
+
+    }
+
+
+});
+
+
+
+
+router.get('/deleteitmOrderid', async(req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    try{
+        console.log("not error");
+        res.statusCode = 200;
+        let result = await db.deleteitmOrderid(req.query.itmOrder_id);
         res.json(result);
 
     }
@@ -1085,6 +1227,41 @@ router.get('/insertAbortion', async(req,res,next) => {
 
 });
 
+router.get('/adminlogin',async(req, res) =>{
+    console.log("login");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); 
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); 
+    try{
+        
+        res.status(200)
+        
+        let result = await db.loginadmin(req.query.email,req.query.password);
+        res.json(result);
+        console.log("successfully uploaded ");
+
+    }
+    catch(e){
+       
+        console.log("some error");
+        if(e.code == "Duplicate entry"){
+           res.status(400)
+            
+            res.json({'error':e.statuscode});
+        }else{
+            res.json({'error':e.code})
+            console.log("successfully uploaded ");
+        }
+       res.status(401);
+       
+
+    }
+  
+  
+  });
+
+
+  
 router.get('/login',async(req, res) =>{
     console.log("login");
     res.setHeader('Access-Control-Allow-Origin', '*');

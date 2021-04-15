@@ -305,8 +305,6 @@ drmobile.getFeedback = () => {
 
 
 
-
-
 drmobile.getVehiclesDetails = (id) => {
 
     return new Promise((resolve,reject) => {
@@ -334,6 +332,56 @@ drmobile.deletemedicine = (med_id) => {
     return new Promise((resolve,reject) => {
 
         pool.query(`DELETE  FROM medicine WHERE med_id = ?` ,[med_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.deleteMedicineOrder = (order_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE FROM medicineorder WHERE order_id = ?` ,[order_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+
+drmobile.deletemedicalitemOrder = (itmOrder_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE FROM itemorder WHERE itmOrder_id = ?` ,[itmOrder_id],(err,results) => {
 
             
             if(err){
@@ -451,6 +499,30 @@ drmobile.deleteInvitation = (I_id) => {
 
 
 
+drmobile.deleteitmOrderid = (itmOrder_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM itemorder WHERE itmOrder_id = ?` ,[itmOrder_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
 
 drmobile.deleteVolunteer = (V_ID) => {
 
@@ -493,7 +565,7 @@ drmobile.Deletefeedback = (UID) => {
 
 
     });
-
+//https://www.youtube.com/watch?v=5bVr10umz2o
 
 };
 
@@ -551,7 +623,7 @@ drmobile.getmyMedicine = (user_id) => {
 
     return new Promise((resolve,reject) => {
           
-        pool.query(`SELECT * FROM medicineorder where user = ?`[user_id],(err,results) => {
+        pool.query(`SELECT * FROM medicineorder where user_id = ?`[user_id],(err,results) => {
 
             
             if(err){
@@ -575,7 +647,7 @@ drmobile.searchInvitation = (user_id) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`SELECT * FROM invitation where user_id =0`,[user_id],(err,results) => {
+        pool.query(`SELECT * FROM invitation where user_id = ?`,[user_id],(err,results) => {
 
             
             if(err){
@@ -592,6 +664,7 @@ drmobile.searchInvitation = (user_id) => {
 
 
 };
+
 
 
 
@@ -650,6 +723,52 @@ drmobile.searchMedicine = (tname) => {
 };
 
 
+
+
+drmobile.medicine_order = () => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM medicineorder`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+drmobile.item_order = () => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * FROM itemorder`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
 
 
 
@@ -1068,6 +1187,29 @@ drmobile.registration = (u_id,name,email,contact1,contact2,location,password) =>
 };
 
 // Get username password
+drmobile.loginadmin = (email,password) => {
+
+    return new Promise((resolve,reject) => {
+       
+        pool.query("SELECT * FROM admin WHERE (email, password) = (?, ?)", [email, password], function(err, row) {
+            console.log(row.length);
+            if(row.length!=0) {
+              console.log("User Logged In");
+              resolve(row);
+            
+              } else {
+              res.status(404);
+              console.error("Failure");
+                reject(err);
+            }
+          });
+
+    });
+
+
+};
+
+
 drmobile.login = (email,password) => {
 
     return new Promise((resolve,reject) => {
