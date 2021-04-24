@@ -3,11 +3,7 @@ const mysql = require('mysql');
 const pool = mysql.createPool({
 
     connectionLimit:10000,
-    // user: 'garageinc',
-    // password: '#Garage123',
-    // database:'garageinc',
-    // host:'151.106.26.182',
-    // port: '3306'
+  
 
     user: 'root',
     password: '',
@@ -25,6 +21,29 @@ drmobile.all = () => {
     return new Promise((resolve,reject) => {
 
         pool.query(`SELECT * from feedback LIMIT 10`,(err,results) => {
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.qanda = () => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`SELECT * from question`,(err,results) => {
             
             if(err){
                 return reject(err);
@@ -276,6 +295,31 @@ drmobile.getInvitations = () => {
 
 
 
+drmobile.getPrescription = () => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`SELECT * FROM prescription`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
 drmobile.getFeedback = () => {
 
     return new Promise((resolve,reject) => {
@@ -305,28 +349,6 @@ drmobile.getFeedback = () => {
 
 
 
-drmobile.getVehiclesDetails = (id) => {
-
-    return new Promise((resolve,reject) => {
-
-        pool.query(`SELECT * FROM vehicles WHERE id LIKE ?` ,[id],(err,results) => {
-
-            
-            if(err){
-                return reject(err);
-            }
-            else{
-                return resolve(results);
-            }
-
-        });
-
-
-    });
-
-
-};
-
 drmobile.deletemedicine = (med_id) => {
 
     return new Promise((resolve,reject) => {
@@ -348,6 +370,55 @@ drmobile.deletemedicine = (med_id) => {
 
 
 };
+
+
+drmobile.deleteVolunterReg = (vr_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE FROM volunteerreg WHERE vr_id = ?` ,[vr_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+drmobile.deleteStaffReg = (user_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM staffregistration WHERE user_id = ?` ,[user_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
 
 
 
@@ -405,6 +476,31 @@ drmobile.deleteInvitation = (I_id) => {
     return new Promise((resolve,reject) => {
 
         pool.query(`DELETE  FROM invitation WHERE I_id = ?` ,[I_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+
+drmobile.deletepres = (I_id) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`DELETE  FROM prescription WHERE Pres_id = ?` ,[I_id],(err,results) => {
 
             
             if(err){
@@ -623,7 +719,7 @@ drmobile.getmyMedicine = (user_id) => {
 
     return new Promise((resolve,reject) => {
           
-        pool.query(`SELECT * FROM medicineorder where user_id = ?`[user_id],(err,results) => {
+        pool.query(`SELECT * FROM medicineorder where user_id = ?`,[user_id],(err,results) => {
 
             
             if(err){
@@ -640,6 +736,56 @@ drmobile.getmyMedicine = (user_id) => {
 
 
 };
+
+
+drmobile.getmyQuestion = (u_id) => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`SELECT * FROM question where u_id = ?`,[u_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.insertAnswer = (q_id,answer) => {
+
+    return new Promise((resolve,reject) => {
+          
+        pool.query(`Update question SET answer=? where q_id=?;`,[answer,q_id],(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
 
 
 
@@ -795,12 +941,87 @@ drmobile.ViewStaffRegistration = () => {
 };
 
 
-// insert feedback
-drmobile.insertfeedback = (user_id,contact,name,feedback) => {
+
+drmobile.ViewVolunteerRegistration = () => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into feedback(UID, contact, Name, feedback) values(?, ?, ?, ?)`,[user_id, contact, name, feedback],(err,results) => {
+        pool.query(`SELECT * FROM volunteerreg`,(err,results) => {
+
+            
+            if(err){
+                return reject(err);
+            }
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+// insert feedback
+drmobile.insertfeedback = (UID,contact,Name,feedback) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into feedback(UID, contact, Name, feedback) values(?, ?, ?, ?)`,[UID, contact, Name, feedback],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
+
+
+drmobile.insertprescption = (user_id,contact,imgUrl,description) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into prescription(Pres_id, user_id, contact, imgUrl, description) values(?, ?, ?, ?)`,[user_id, contact, imgUrl, description],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+drmobile.insertquestion = (user_id,question) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into question(u_id,question, answer) values(?, ?,"")`,[user_id, question],(err,results) => {
             
           
            
@@ -989,11 +1210,11 @@ drmobile.insertSexEducation = (topic,article1,date,image1,article2,image2) => {
 };
 
 
-drmobile.insertstaff = (Name,staff_type,location,fee,reg_no,photo) => {
+drmobile.insertstaff = (name,staff_type,location,fee,reg_no,photo) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into staff(name, staff_type, location, fee, reg_no, photo) values(?, ?, ?, ?, ?, ?)`,[Name, staff_type, location, fee, reg_no, photo],(err,results) => {
+        pool.query(`insert into staff(name, staff_type, location, fee, reg_no, photo) values(?, ?, ?, ?, ?, ?)`,[name, staff_type, location, fee, reg_no, photo],(err,results) => {
             
           
            
@@ -1040,12 +1261,11 @@ drmobile.insertvolunteer = (V_ID,name,location,contact,type,details,email,image)
 };
 
 
-
-drmobile.insertStaffRegistration = (U_id,image,image1,image2,description) => {
+drmobile.insertStaffRegistration = (user_id,name,reg_no,contact,location) => {
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into staffRegistration(U_id, image, image1, image2, description) values(?, ?, ?, ?, ?)`,[U_id, image, image1, image2, description],(err,results) => {
+        pool.query(`insert into staffregistration(user_id, Name, reg_no, Contact, location) values(?, ?, ?, ?, ?)`,[user_id, name, reg_no, contact, location],(err,results) => {
             
           
            
@@ -1065,6 +1285,33 @@ drmobile.insertStaffRegistration = (U_id,image,image1,image2,description) => {
 
 
 };
+
+
+drmobile.insertVolunteerReg = (user_id,name,reg_no,contact,location) => {
+
+    return new Promise((resolve,reject) => {
+
+        pool.query(`insert into volunteerreg(user_id, Name, reg_no, contact, location) values(?, ?, ?, ?, ?)`,[user_id, name, reg_no, contact, location],(err,results) => {
+            
+          
+           
+
+            if(err){
+               
+                return reject(err);}
+         
+            else{
+                return resolve(results);
+            }
+
+        });
+
+
+    });
+
+
+};
+
 
 
 
@@ -1215,13 +1462,39 @@ drmobile.login = (email,password) => {
     return new Promise((resolve,reject) => {
        
         pool.query("SELECT * FROM user WHERE (email, password) = (?, ?)", [email, password], function(err, row) {
-            console.log(row.length);
+        
             if(row.length!=0) {
               console.log("User Logged In");
               resolve(row);
             
               } else {
-              res.status(404);
+
+        
+              console.error("Failure");
+                reject(err);
+            }
+          });
+
+    });
+
+
+};
+
+
+
+drmobile.adminlogin = (email,password) => {
+
+    return new Promise((resolve,reject) => {
+       
+        pool.query("SELECT * FROM admin WHERE (email, password) = (?, ?)", [email, password], function(err, row) {
+        
+            if(row.length!=0) {
+              console.log("User Logged In");
+              resolve(row);
+            
+              } else {
+
+        
               console.error("Failure");
                 reject(err);
             }
