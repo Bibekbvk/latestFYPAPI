@@ -1,13 +1,13 @@
 {
-  "name": "garageincapi",
+  "name": "drmobileapi",
   "version": "1.0.0",
-  "description": "Garage Inc API",
+  "description": "Dr mobile api",
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon server/server.js -w server",
     "prod": "node server/server.js"
   },
-  "author": "Garage Inc",
+  "author": "Dr mobile",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",

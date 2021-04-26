@@ -1378,11 +1378,12 @@ router.get('/insertstaff', async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET'); // If needed
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     try {
-
-        res.statusCode = 200;
+    
 
         let result = await db.insertstaff(decodeURI(req.query.name), decodeURI(req.query.staff_type), decodeURI(req.query.location), decodeURI(req.query.fee), decodeURI(req.query.reg_no), decodeURI(req.query.photo));
-        res.json(e.statusCode);
+
+    
+        res.sendStatus(200);
         console.log("successfully uploaded ")
 
     }

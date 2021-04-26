@@ -1106,7 +1106,7 @@ drmobile.insertItemOrder = (itmOrder_id,user_id,itm_id,user_contact,user_name) =
 
     return new Promise((resolve,reject) => {
 
-        pool.query(`insert into itemorder(itmOrder_id, user_id, itm_id, user_contact, user_name) values(?, ?, ?, ?, ?)`,[itmOrder_id,user_id, itm_id, user_contact, user_name],(err,results) => {
+        pool.query(`insert into itemorder(itmOrder_id, user_id, itm_id, user_contact, user_name) values(?, ?, ?, ?, ?)`,[itmOrder_id, user_id, itm_id, user_contact, user_name],(err,results) => {
             
           
            
